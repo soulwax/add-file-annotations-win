@@ -1,13 +1,6 @@
 # compile.ps1
 # Script to compile the File Path Annotator into an executable
 
-# Ensure PowerShellGet is installed
-
-if (-not (Get-Module -ListAvailable -Name PowerShellGet)) {
-    Write-Host "Installing PowerShellGet module..."
-    Install-Module -Name PowerShellGet -Scope CurrentUser -Force
-}
-
 # Ensure PS2EXE is installed
 if (-not (Get-Module -ListAvailable -Name ps2exe)) {
     Write-Host "Installing PS2EXE module..."
@@ -42,7 +35,7 @@ powershell -ExecutionPolicy Bypass -File "%~dp0main.ps1" %*
 $batchContent | Out-File -FilePath "$buildPath\FileAnnotator.bat" -Encoding ascii
 
 Write-Host "Build completed successfully!"
-Write-Host "Files created in $buildPath:"
+Write-Host ("Files created in {0}:" -f $buildPath)
 Get-ChildItem $buildPath | ForEach-Object {
-    Write-Host "  - $($_.Name)"
+    Write-Host ("  - {0}" -f $_.Name)
 }
